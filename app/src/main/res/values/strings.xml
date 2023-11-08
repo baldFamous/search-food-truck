@@ -1,0 +1,59 @@
+<resources>
+
+    <string name="app_name">Food-Truck</string>
+
+    //act login
+    <string name="txt_titulo">Iniciar Sesión</string>
+    <string name="correo">Correo</string>
+    <string name="contra">Contraseña</string>
+    <string name="btn_ingresar">Iniciar sesión</string>
+    <string name="terms">Terminos y condiciones</string>
+    <string name="editcorreo">Introduce tu correo</string>
+    <string name="editcontra">Introduce tu contraseña</string>
+    <string name="registro">No tiene una cuenta? Registro Aqui</string>
+    <string name="olv_contr">Ha olvidado su contraseña?</string>
+
+    //act registro
+    <string name="txt_titulo2">Registro</string>
+    <string name="nombre">Nombre</string>
+    <string name="editnombre">Introduce tu nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="editapellido">Introduce tu apellido</string>
+    <string name="btn_propietario">Soy propietario</string>
+    <string name="btn_consumidor">Soy consumidor</string>
+    <string name="btn_crear">Crear cuenta</string>
+    <string name="num_pat">Ingrese numero de patente</string>
+
+
+    //act terminos
+    <string name="txt_titulo3">Terminos y condiciones</string>
+    <string name="terminos_texto">
+    Términos y Condiciones de Uso de la Aplicación de Búsqueda de Food Trucks:\n
+    Bienvenido a nuestra aplicación de búsqueda de food trucks. Al utilizar esta Aplicación, usted acepta los siguientes términos y condiciones, que rigen su acceso y uso de nuestros servicios.\n
+
+    Uso Adecuado: La Aplicación se proporciona exclusivamente para su uso personal y no comercial. Usted se compromete a utilizarla de manera legal y ética, respetando todas las leyes y regulaciones aplicables.\n
+    Contenido de Terceros: La Aplicación puede contener enlaces a sitios web de terceros y contenido proporcionado por terceros, como información sobre food trucks. No asumimos responsabilidad por la precisión, seguridad o legalidad de dicho contenido. Usted accede a estos recursos bajo su propio riesgo.\n
+    Privacidad: Respetamos su privacidad y recopilamos, almacenamos y utilizamos sus datos personales de acuerdo con nuestra Política de Privacidad. Al utilizar la Aplicación, usted acepta nuestras prácticas de privacidad.\n
+    Responsabilidad: No somos responsables de los problemas o daños causados por el uso de la Aplicación, incluidos problemas de acceso, virus informáticos o pérdida de datos. Usted acepta utilizar la Aplicación bajo su propia responsabilidad.\n
+    Cambios en los Términos: Nos reservamos el derecho de modificar estos términos en cualquier momento. Le notificaremos sobre cambios significativos a través de la Aplicación o por otros medios. Su uso continuado de la Aplicación después de la modificación constituye su aceptación de los nuevos términos.\n
+    Terminación: Podemos suspender o dar por terminado su acceso a la Aplicación en cualquier momento, sin previo aviso, si consideramos que ha incumplido estos términos.\n
+    Ley Aplicable: Estos términos se rigen por las leyes del país en el que operamos. Cualquier disputa se resolverá mediante arbitraje de conformidad con nuestras políticas internas.\n
+    Gracias por utilizar nuestra Aplicación de Búsqueda de Food Trucks. Esperamos que disfrute de su experiencia y encuentre los mejores food trucks cerca de usted. Si tiene alguna pregunta o inquietud, no dude en ponerse en contacto con nosotros.\n
+            </string>
+
+
+    //act menu
+    <string name="title_home">Inicio</string>
+    <string name="tittle_maps">Mapa</string>
+    <string name="tittle_account">Cuenta</string>
+
+
+
+
+
+
+
+
+
+
+</resources>
