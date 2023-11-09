@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.search_food_truck.R;
+import Food.Truck.R;
 
 public class Terminos extends AppCompatActivity {
 

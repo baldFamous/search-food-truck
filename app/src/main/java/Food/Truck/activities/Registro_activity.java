@@ -13,11 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.search_food_truck.R;
-import com.example.search_food_truck.database.DatabaseHelper;
-import com.example.search_food_truck.database.DatabaseManager;
-import com.example.search_food_truck.indep_classes.usuario_consum;
-import com.example.search_food_truck.indep_classes.usuario_propi;
+import Food.Truck.R;
+import Food.Truck.database.DatabaseHelper;
+import Food.Truck.database.DatabaseManager;
+import Food.Truck.indep_classes.usuario_consum;
+import Food.Truck.indep_classes.usuario_propi;
 
 public class Registro_activity extends AppCompatActivity {
     Button btn_consumidor;
