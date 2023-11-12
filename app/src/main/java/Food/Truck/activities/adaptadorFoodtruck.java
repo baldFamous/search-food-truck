@@ -24,22 +24,31 @@ public class adaptadorFoodtruck extends RecyclerView.Adapter<adaptadorFoodtruck.
      Inflar significa crear una vista a partir de un archivo de diseño XML.
      El método onCreateViewHolder() utiliza el método inflate() para inflar el diseño del elemento de la lista.
      El diseño del elemento de la lista se encuentra en el archivo list_foodtruck_cardview.xml.
-     El archivo list_foodtruck_cardview.xml contiene las vistas que se utilizan para representar un elemento de la lista. Estas vistas incluyen una imagen, un texto y una descripción.
+     * El archivo list_foodtruck_cardview.xml contiene las vistas que se utilizan para representar un elemento de la lista. Estas vistas incluyen una imagen, un texto y una descripción.
      */
+    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // Infla el diseño del elemento de la lista
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.foodtruck_cardview, parent, false);
+
+        // Crea un nuevo ViewHolder y lo devuelve
         return new ViewHolder(v);
     }
 
     // Enlaza los datos del contacto con el ViewHolder
+    @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        FoodTruck foodTuck = items.get(position);
-        viewHolder.imagen.setImageResource(items.get(position).getImagen());
-        viewHolder.nombre.setText("Nombre:" + items.get(position).getNombre());
-        viewHolder.descripcion.setText("Descripcion:" + items.get(position).getDescripcion());
+        // Obtiene el FoodTruck actual de la lista
+        FoodTruck foodTruck = items.get(position);
+
+        // Establece los datos del FoodTruck en las vistas del ViewHolder
+        viewHolder.imagen.setImageResource(foodTruck.getImagen());
+        viewHolder.nombre.setText("Nombre: " + foodTruck.getNombre());
+        viewHolder.descripcion.setText("Descripción: " + foodTruck.getDescripcion());
     }
 
     // Devuelve el total de foodtrucks en la lista
+    @Override
     public int getItemCount() {
         return items.size();
     }
@@ -50,9 +59,10 @@ public class adaptadorFoodtruck extends RecyclerView.Adapter<adaptadorFoodtruck.
         public TextView nombre;
         public TextView descripcion;
 
-
         public ViewHolder(View v) {
             super(v);
+
+            // Obtiene las referencias a las vistas del elemento de la lista
             imagen = (ImageView) v.findViewById(R.id.imagen);
             nombre = (TextView) v.findViewById(R.id.txtNombre);
             descripcion = (TextView) v.findViewById(R.id.txtDescripcion);

@@ -46,14 +46,11 @@
     <string name="title_home">Inicio</string>
     <string name="tittle_maps">Mapa</string>
     <string name="tittle_account">Cuenta</string>
+    <string name="title_activity_details_ft">Details_FT</string>
 
-
-
-
-
-
-
-
+    //Act Detalles
+    <string name="txt_DetallesTitulo">Detalles</string>
+    <string name="title_activity_details_activities">Details_Activities</string>
 
 
 </resources>
