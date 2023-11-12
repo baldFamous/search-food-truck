@@ -37,10 +37,6 @@
         <activity
             android:name=".activities.Terminos">
         </activity>
-        <activity
-            android:name=".activities.Details_activity">
-        </activity>
-
     </application>
 
 </manifest>
