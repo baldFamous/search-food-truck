@@ -46,6 +46,7 @@
     <string name="title_home">Inicio</string>
     <string name="tittle_maps">Mapa</string>
     <string name="tittle_account">Cuenta</string>
+    <string name="title_menu">Menu</string>
 
     //Act Detalles
     <string name="txt_DetallesTitulo">Detalles</string>
@@ -69,4 +70,8 @@
     <string name="imagen">Agregar Imagen</string>
     <string name="btn_Agregar">Agregar Foodtruck</string>
     <string name="editImg">Inserte Imagen Aqui</string>
+
+
+    // act menu foodtruck
+    <string name="foodtruck_image_desc">Imagen del camión de comida</string>
 </resources>

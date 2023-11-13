@@ -1,5 +1,6 @@
 package Food.Truck.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +18,7 @@ import Food.Truck.R;
 import Food.Truck.activities.adaptadorFoodtruck;
 import Food.Truck.databinding.FragmentHomeBinding;
 import Food.Truck.indep_classes.FoodTruck;
+import Food.Truck.ui.menu.MenuFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,34 +48,42 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         // Crea una lista de FoodTrucks
         List<Food.Truck.indep_classes.FoodTruck> items = new ArrayList<>();
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Don Humbreto", "Aquí venden buenas papas fritas"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Altillo", "Aquí venden buenas chorrillanas"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Rodriguez hot dogs", "Aquí venden buenos completos"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Foodie Express", "Descripción de Foodie Express"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Food Truck X", "Descripción del Food Truck X"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Sabor Latino", "Descripción de Sabor Latino"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Pizza Paradise", "Descripción de Pizza Paradise"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Taco Town", "Descripción de Taco Town"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Burger Bistro", "Descripción de Burger Bistro"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Sushi Delight", "Descripción de Sushi Delight"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Burrito Express", "Descripción de Burrito Express"));
-        items.add(new FoodTruck(R.drawable.icons8_travel_64, "Sweet Treats", "Descripción de Sweet Treats"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(1, R.drawable.icons8_travel_64, "Don Humbreto", "Aquí venden buenas papas fritas"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(2, R.drawable.icons8_travel_64, "Altillo", "Aquí venden buenas chorrillanas"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(3, R.drawable.icons8_travel_64, "Rodriguez hot dogs", "Aquí venden buenos completos"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(4, R.drawable.icons8_travel_64, "Foodie Express", "Descripción de Foodie Express"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(5, R.drawable.icons8_travel_64, "Food Truck X", "Descripción del Food Truck X"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(6, R.drawable.icons8_travel_64, "Sabor Latino", "Descripción de Sabor Latino"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(7, R.drawable.icons8_travel_64, "Pizza Paradise", "Descripción de Pizza Paradise"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(8, R.drawable.icons8_travel_64, "Taco Town", "Descripción de Taco Town"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(9, R.drawable.icons8_travel_64, "Burger Bistro", "Descripción de Burger Bistro"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(10, R.drawable.icons8_travel_64, "Sushi Delight", "Descripción de Sushi Delight"));
+        items.add(new Food.Truck.indep_classes.FoodTruck(11, R.drawable.icons8_travel_64, "Burrito Express", "Descripción de Burrito Express"));
 
-        // Obtiene la referencia al RecyclerView
         recyclerView = root.findViewById(R.id.rvFoodTK);
-        // Establece que el RecyclerView tiene un tamaño fijo
         recyclerView.setHasFixedSize(true);
-        // Crea un nuevo LinearLayoutManager para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        // Establece el LayoutManager del RecyclerView
         recyclerView.setLayoutManager(layoutManager);
+
         // Crea un nuevo adaptador para el RecyclerView (Aqui esta el adaptador para el recycler)
-        Food.Truck.activities.adaptadorFoodtruck adapter = new adaptadorFoodtruck(items);
-        // Establece el adaptador del RecyclerView
+        final adaptadorFoodtruck adapter = new adaptadorFoodtruck(items);
+
+        // Establecer el OnItemClickListener que definiste en tu adaptador
+        adapter.setOnItemClickListener(new adaptadorFoodtruck.OnItemClickListener() {
+            @Override
+            public void onItemClick(FoodTruck foodTruck) {
+                // Usa el NavController para navegar al MenuFragment
+                NavController navController = Navigation.findNavController(getView());
+                Bundle args = new Bundle();
+                args.putInt("foodTruckId", foodTruck.getId()); // Asegúrate de que FoodTruck tenga un método getId()
+                navController.navigate(R.id.action_navigation_home_to_menuFragment, args);}
+        });
+
         recyclerView.setAdapter(adapter);
 
         return root;
     }
+
 
     /**
      * Este método se llama cuando se destruye el fragmento.
