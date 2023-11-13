@@ -1,7 +1,6 @@
 package Food.Truck.ui.home;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,14 +24,12 @@ import Food.Truck.activities.Inicio;
 import Food.Truck.activities.adaptadorFoodtruck;
 import Food.Truck.databinding.FragmentHomeBinding;
 import Food.Truck.indep_classes.FoodTruck;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    private GridLayoutManager gridLayoutManager;
+
     FragmentHomeBinding binding;
     RecyclerView recyclerView;
     List<FoodTruck> dataFT;
@@ -55,17 +52,14 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         // Obtiene la referencia al RecyclerView
-        // Initialize the RecyclerView
-        recyclerView = binding.rvFoodTK;
-        if (isAdded()) {
-            gridLayoutManager = new GridLayoutManager(getContext(), 1);
-        } else {
-            // Do something else
-        }
+        recyclerView = root.findViewById(R.id.rvFoodTK);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+        // Establece el LayoutManager del RecyclerView
         recyclerView.setLayoutManager(gridLayoutManager);
 
         dataFT = new ArrayList<>();
-        adaptadorFoodtruck adaptador = new adaptadorFoodtruck(getContext(), dataFT);
+        adaptadorFoodtruck adaptador = new adaptadorFoodtruck(getActivity(), dataFT);
         recyclerView.setAdapter(adaptador);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Foodtruck");
@@ -76,6 +70,7 @@ public class HomeFragment extends Fragment {
                 dataFT.clear();
                 for (DataSnapshot itemSnapShot: snapshot.getChildren()){
                     FoodTruck foodTruck = itemSnapShot.getValue(FoodTruck.class);
+                    foodTruck.setKey(itemSnapShot.getKey());
                     dataFT.add(foodTruck);
                 }
                 adaptador.notifyDataSetChanged();

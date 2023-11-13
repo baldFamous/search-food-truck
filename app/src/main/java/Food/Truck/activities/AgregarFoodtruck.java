@@ -126,7 +126,7 @@ public class AgregarFoodtruck extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(AgregarFoodtruck.this, "Guardado", Toast.LENGTH_SHORT).show();
-                            finish();
+
                         }
                     }public void onFailure(@NonNull Exception e){
                         Toast.makeText(AgregarFoodtruck.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();

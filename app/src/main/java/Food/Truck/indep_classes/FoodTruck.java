@@ -4,11 +4,27 @@ import android.net.Uri;
 
 public class FoodTruck {
 
+    public String getKey() {
+        return Key;
+    }
+
+    public void setKey(String key) {
+        Key = key;
+    }
+
+    private String Key;
     private String Nombre;
     private String Patente;
     private String Descripcion;
     private String Telefono;
     private String Imagen;
+    public FoodTruck() {
+        this.Nombre = "";
+        this.Patente = "";
+        this.Descripcion = "";
+        this.Telefono = "";
+        this.Imagen = "";
+    }
     public FoodTruck(String nombre, String patente, String descripcion, String telefono, String imagen) {
         Nombre = nombre;
         Patente = patente;

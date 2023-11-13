@@ -15,8 +15,8 @@
         android:orientation="vertical"
         android:padding="16dp"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="119dp">
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="121dp">
 
         <TextView
             android:id="@+id/txtTelefono"
@@ -64,14 +64,33 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.538" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/idftEliminar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:clickable="true"
-            android:src="@android:drawable/ic_input_add"
-            tools:layout_editor_absoluteX="3dp"
-            tools:layout_editor_absoluteY="504dp" />
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="304dp"
+            tools:layout_editor_absoluteY="493dp">
+
+            <com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/idftEliminar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons8_trash_32"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu_animationDelayPerItem="50"
+                app:menu_backgroundColor="@color/RED"
+                app:menu_colorNormal="@color/RED"
+                app:menu_colorPressed="@color/RED"
+                app:menu_fab_size="normal"
+                app:menu_openDirection="up"
+                app:menu_showShadow="true" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

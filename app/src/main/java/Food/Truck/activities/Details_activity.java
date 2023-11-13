@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,7 +28,7 @@ public class Details_activity extends AppCompatActivity {
 
     TextView NombreFT, DetailsFT,TelefonoFT;
     ImageView imagen;
-    Button deleteBT;
+    FloatingActionMenu deleteBT;
     String key = "";
     String imageUrl ="";
     @Override
@@ -49,20 +51,24 @@ public class Details_activity extends AppCompatActivity {
         deleteBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("FoodTruck");
-                FirebaseStorage storage = FirebaseStorage.getInstance();
+                try {
+                    final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("FoodTruck");
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
 
-                StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);
-                storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        reference.child(key).removeValue();
-                        reference.child(key).child("imageUrl").removeValue();
-                        Toast.makeText(Details_activity.this, "Eliminado", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), Inicio.class));
-                        finish();
-                    }
-                });
+                    StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);
+                    storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            reference.child(key).removeValue();
+                            reference.child(key).child("imageUrl").removeValue();
+                            Toast.makeText(Details_activity.this, "Eliminado", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), Inicio.class));
+                            finish();
+                        }
+                    });
+                } catch (Exception e) {
+                    Toast.makeText(Details_activity.this, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
