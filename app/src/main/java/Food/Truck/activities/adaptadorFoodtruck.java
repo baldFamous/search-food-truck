@@ -23,8 +23,8 @@ public class adaptadorFoodtruck extends RecyclerView.Adapter<adaptadorFoodtruck.
     /***
      Inflar significa crear una vista a partir de un archivo de diseño XML.
      El método onCreateViewHolder() utiliza el método inflate() para inflar el diseño del elemento de la lista.
-     El diseño del elemento de la lista se encuentra en el archivo list_foodtruck_cardview.xml.
-     * El archivo list_foodtruck_cardview.xml contiene las vistas que se utilizan para representar un elemento de la lista. Estas vistas incluyen una imagen, un texto y una descripción.
+     El diseño del elemento de la lista se encuentra en el archivo foodtruck_cardview.xml.
+     * El archivo foodtruck_cardview.xml contiene las vistas que se utilizan para representar un elemento de la lista. Estas vistas incluyen una imagen, un texto y una descripción.
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,7 +35,7 @@ public class adaptadorFoodtruck extends RecyclerView.Adapter<adaptadorFoodtruck.
         return new ViewHolder(v);
     }
 
-    // Enlaza los datos del contacto con el ViewHolder
+    // Enlaza los datos del FoodTruck con el ViewHolder para cada cardview
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         // Obtiene el FoodTruck actual de la lista

@@ -46,11 +46,27 @@
     <string name="title_home">Inicio</string>
     <string name="tittle_maps">Mapa</string>
     <string name="tittle_account">Cuenta</string>
-    <string name="title_activity_details_ft">Details_FT</string>
 
     //Act Detalles
     <string name="txt_DetallesTitulo">Detalles</string>
     <string name="title_activity_details_activities">Details_Activities</string>
 
+    //ActAccountPropietario
+    <string name="OpcionInfoP">Información Personal</string>
+    <string name="OpcionAddFT">Agregar Nuevo Foodtruck</string>
+    <string name="OpcionConf">Configuración</string>
 
+
+    //act Agregar FoodTruck
+    <string name="txt_titulo4">Agregar FoodTruck</string>
+    <string name="editnombreFT">Nombre Foodtruck</string>
+    <string name="patente">Patente De FoodTruck</string>
+    <string name="editapatente">Numero De Patente</string>
+    <string name="descripcion">Agregar Descripción</string>
+    <string name="editDescripcion">Descripción</string>
+    <string name="telefono">Telefono</string>
+    <string name="editTelefono">+569</string>
+    <string name="imagen">Agregar Imagen</string>
+    <string name="btn_Agregar">Agregar Foodtruck</string>
+    <string name="editImg">Inserte Imagen Aqui</string>
 </resources>

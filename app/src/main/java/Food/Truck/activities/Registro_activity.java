@@ -2,9 +2,7 @@ package Food.Truck.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import Food.Truck.R;
-import Food.Truck.database.DatabaseHelper;
 import Food.Truck.database.DatabaseManager;
 import Food.Truck.indep_classes.usuario_consum;
 import Food.Truck.indep_classes.usuario_propi;
@@ -37,13 +34,13 @@ public class Registro_activity extends AppCompatActivity {
 
         btn_consumidor = findViewById(R.id.btn_consumidor);
         btn_propietario = findViewById(R.id.btn_propietario);
-        btn_registrar = findViewById(R.id.btn_crear);
+        btn_registrar = findViewById(R.id.btn_Agregar);
         abrirTerminos = findViewById(R.id.terms);
         nombre_edit = findViewById(R.id.editTextNombre);
-        apellido_edit = findViewById(R.id.editTextApellido);
-        correo_edit = findViewById(R.id.editTextCorreo);
-        contrasena_edit = findViewById(R.id.editTextContrasena_reg);
-        patente_edit = findViewById(R.id.num_pat);
+        apellido_edit = findViewById(R.id.editTextNumPatente);
+        correo_edit = findViewById(R.id.editDescripcion);
+        contrasena_edit = findViewById(R.id.editTextTelefono);
+        patente_edit = findViewById(R.id.edittxtImagen);
 
         btn_consumidor.setOnClickListener(new View.OnClickListener() {
             @Override

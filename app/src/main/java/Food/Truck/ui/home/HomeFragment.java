@@ -23,8 +23,10 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
+    /*
     private RecyclerView.Adapter Adapter;
     private RecyclerView.LayoutManager lManager;
+    */
 
     /**
      * Este método se llama cuando se crea el fragmento.
@@ -63,7 +65,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         // Establece el LayoutManager del RecyclerView
         recyclerView.setLayoutManager(layoutManager);
-        // Crea un nuevo adaptador para el RecyclerView
+        // Crea un nuevo adaptador para el RecyclerView (Aqui esta el adaptador para el recycler)
         Food.Truck.activities.adaptadorFoodtruck adapter = new adaptadorFoodtruck(items);
         // Establece el adaptador del RecyclerView
         recyclerView.setAdapter(adapter);

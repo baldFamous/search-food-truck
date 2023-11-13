@@ -15,28 +15,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodtruck"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.AgregarFoodtruck"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBujEJ43mI1EkZxVitmGuX45Ha8mWMlxJY" />
+
         <activity
             android:name=".activities.Login_activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER"/>
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.Registro_activity">
-        </activity>
+        <activity android:name=".activities.Registro_activity"></activity>
+        <activity android:name=".activities.Inicio"></activity>
+        <activity android:name=".activities.Terminos"></activity>
 
-        <activity
-            android:name=".activities.Inicio">
-        </activity>
-
-        <activity
-            android:name=".activities.Terminos">
-        </activity>
     </application>
 
 </manifest>

@@ -11,7 +11,8 @@ public class Details_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.term_cond);
+        setContentView(R.layout.details_foodtruck);
     }
+
 
 }
