@@ -1,5 +1,7 @@
 package Food.Truck.ui.home;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,25 +10,34 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import Food.Truck.R;
+import Food.Truck.activities.Inicio;
 import Food.Truck.activities.adaptadorFoodtruck;
 import Food.Truck.databinding.FragmentHomeBinding;
 import Food.Truck.indep_classes.FoodTruck;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
-    private FragmentHomeBinding binding;
-    private RecyclerView recyclerView;
-    /*
-    private RecyclerView.Adapter Adapter;
-    private RecyclerView.LayoutManager lManager;
-    */
+    private GridLayoutManager gridLayoutManager;
+    FragmentHomeBinding binding;
+    RecyclerView recyclerView;
+    List<FoodTruck> dataFT;
+    DatabaseReference databaseReference;
+    ValueEventListener eventListener;
 
     /**
      * Este método se llama cuando se crea el fragmento.
@@ -42,34 +53,39 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        // Crea una lista de FoodTrucks
-        List<Food.Truck.indep_classes.FoodTruck> items = new ArrayList<>();
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Don Humbreto", "Aquí venden buenas papas fritas"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Altillo", "Aquí venden buenas chorrillanas"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Rodriguez hot dogs", "Aquí venden buenos completos"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Foodie Express", "Descripción de Foodie Express"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Food Truck X", "Descripción del Food Truck X"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Sabor Latino", "Descripción de Sabor Latino"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Pizza Paradise", "Descripción de Pizza Paradise"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Taco Town", "Descripción de Taco Town"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Burger Bistro", "Descripción de Burger Bistro"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Sushi Delight", "Descripción de Sushi Delight"));
-        items.add(new Food.Truck.indep_classes.FoodTruck(R.drawable.icons8_travel_64, "Burrito Express", "Descripción de Burrito Express"));
-        items.add(new FoodTruck(R.drawable.icons8_travel_64, "Sweet Treats", "Descripción de Sweet Treats"));
 
         // Obtiene la referencia al RecyclerView
-        recyclerView = root.findViewById(R.id.rvFoodTK);
-        // Establece que el RecyclerView tiene un tamaño fijo
-        recyclerView.setHasFixedSize(true);
-        // Crea un nuevo LinearLayoutManager para el RecyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        // Establece el LayoutManager del RecyclerView
-        recyclerView.setLayoutManager(layoutManager);
-        // Crea un nuevo adaptador para el RecyclerView (Aqui esta el adaptador para el recycler)
-        Food.Truck.activities.adaptadorFoodtruck adapter = new adaptadorFoodtruck(items);
-        // Establece el adaptador del RecyclerView
-        recyclerView.setAdapter(adapter);
+        // Initialize the RecyclerView
+        recyclerView = binding.rvFoodTK;
+        if (isAdded()) {
+            gridLayoutManager = new GridLayoutManager(getContext(), 1);
+        } else {
+            // Do something else
+        }
+        recyclerView.setLayoutManager(gridLayoutManager);
 
+        dataFT = new ArrayList<>();
+        adaptadorFoodtruck adaptador = new adaptadorFoodtruck(getContext(), dataFT);
+        recyclerView.setAdapter(adaptador);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Foodtruck");
+
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dataFT.clear();
+                for (DataSnapshot itemSnapShot: snapshot.getChildren()){
+                    FoodTruck foodTruck = itemSnapShot.getValue(FoodTruck.class);
+                    dataFT.add(foodTruck);
+                }
+                adaptador.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         return root;
     }
 
