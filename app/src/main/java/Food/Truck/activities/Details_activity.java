@@ -26,35 +26,40 @@ import Food.Truck.R;
 
 public class Details_activity extends AppCompatActivity {
 
-    TextView NombreFT, DetailsFT,TelefonoFT;
+    TextView NombreFT, DetailsFT, TelefonoFT;
     ImageView imagen;
     Button deleteBT;
     Button editBT;
     String key = "";
-    String imageUrl ="";
+    String imageUrl = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_foodtruck);
-        NombreFT =findViewById(R.id.txtNombreFT);
-        DetailsFT =findViewById(R.id.txtDescripcionFT);
-        TelefonoFT =findViewById(R.id.txtTelefono);
+
+        // Inicialización de vistas
+        NombreFT = findViewById(R.id.txtNombreFT);
+        DetailsFT = findViewById(R.id.txtDescripcionFT);
+        TelefonoFT = findViewById(R.id.txtTelefono);
         deleteBT = findViewById(R.id.btnEliminar);
         editBT = findViewById(R.id.btnEditar);
 
+        // Obtener datos del Intent
         Bundle bundle = getIntent().getExtras();
         ImageView imageView = findViewById(R.id.imageView);
-        String imageUrl = bundle.getString("Image");
 
+        // Obtener la URL de la imagen del FoodTruck
+        imageUrl = bundle.getString("Image");
+
+        // Cargar la imagen usando Glide o establecer una imagen por defecto si la URL es nula o vacía
         if (imageUrl != null && !imageUrl.isEmpty()) {
-            Glide.with(this)
-                    .load(imageUrl)
-                    .into(imageView);
+            Glide.with(this).load(imageUrl).into(imageView);
         } else {
-            // Si la URL es null, puedes establecer una imagen por defecto.
             imageView.setImageResource(R.drawable.user);
         }
 
+        // Configurar el botón de eliminación
         deleteBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +67,10 @@ public class Details_activity extends AppCompatActivity {
                     final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("FoodTruck");
                     FirebaseStorage storage = FirebaseStorage.getInstance();
 
+                    // Obtener referencia de almacenamiento para la imagen
                     StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);
+
+                    // Eliminar la imagen del almacenamiento y los datos del FoodTruck de la base de datos
                     storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
@@ -74,14 +82,17 @@ public class Details_activity extends AppCompatActivity {
                         }
                     });
                 } catch (Exception e) {
+                    // Manejar errores al eliminar
                     Toast.makeText(Details_activity.this, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        // Configurar el botón de edición
         editBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Iniciar la actividad de edición y pasar datos adicionales
                 Intent intent = new Intent(Details_activity.this, editar_activity.class);
                 intent.putExtra("key", key);
                 intent.putExtra("Nombre", NombreFT.getText().toString());

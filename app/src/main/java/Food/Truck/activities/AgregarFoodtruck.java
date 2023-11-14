@@ -5,27 +5,18 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.Instrumentation;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,10 +45,10 @@ public class AgregarFoodtruck extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_foodtruck);
 
         // Binds View
-        nombre_FT = (EditText) findViewById(R.id.editTextNombre);
-        patente_FT = (EditText)findViewById(R.id.editTextNumPatente);
-        descripcion_FT = (EditText)findViewById(R.id.editDescripcion);
-        telefono_FT = (EditText)findViewById(R.id.editTextTelefono);
+        nombre_FT = (EditText) findViewById(R.id.editTxtNombre);
+        patente_FT = (EditText)findViewById(R.id.editTxtNumPatente);
+        descripcion_FT = (EditText)findViewById(R.id.edittxtDescripcion);
+        telefono_FT = (EditText)findViewById(R.id.editTxtTelefono);
         imgFT = (ImageView) findViewById(R.id.imageButton);
         add_Ft = (Button) findViewById(R.id.btn_Agregar);
 

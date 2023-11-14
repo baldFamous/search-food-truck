@@ -36,10 +36,10 @@ public class Registro_activity extends AppCompatActivity {
         btn_propietario = findViewById(R.id.btn_propietario);
         btn_registrar = findViewById(R.id.btn_Agregar);
         abrirTerminos = findViewById(R.id.terms);
-        nombre_edit = findViewById(R.id.editTextNombre);
-        apellido_edit = findViewById(R.id.editTextNumPatente);
-        correo_edit = findViewById(R.id.editDescripcion);
-        contrasena_edit = findViewById(R.id.editTextTelefono);
+        nombre_edit = findViewById(R.id.editTxtNombre);
+        apellido_edit = findViewById(R.id.editTxtNumPatente);
+        correo_edit = findViewById(R.id.edittxtDescripcion);
+        contrasena_edit = findViewById(R.id.editTxtTelefono);
         patente_edit = findViewById(R.id.edittxtImagen);
 
         btn_consumidor.setOnClickListener(new View.OnClickListener() {

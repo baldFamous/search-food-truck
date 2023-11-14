@@ -60,18 +60,26 @@
 
     //act Agregar FoodTruck
     <string name="txt_titulo4">Agregar FoodTruck</string>
-    <string name="editnombreFT">Nombre Foodtruck</string>
+    <string name="addnombreFT">Nombre Foodtruck</string>
     <string name="patente">Patente De FoodTruck</string>
-    <string name="editapatente">Numero De Patente</string>
+    <string name="addpatente">Numero De Patente</string>
     <string name="descripcion">Agregar Descripción</string>
-    <string name="editDescripcion">Descripción</string>
+    <string name="addDescripcion">Descripción</string>
     <string name="telefono">Telefono</string>
-    <string name="editTelefono">+569</string>
+    <string name="addTelefono">+569</string>
     <string name="imagen">Agregar Imagen</string>
     <string name="btn_Agregar">Agregar Foodtruck</string>
+    <string name="addImg">Inserte Imagen Aqui</string>
+    // act ModificarFoodtruck
+    <string name="imagenEdit">Cambiar Imagen</string>
+    <string name="txtdescripcion">Editar Descripción</string>
+    <string name="txt_titulo5">Editar Foodtruck</string>
+    <string name="editnombreFT">Nombre Foodtruck</string>
+    <string name="editapatente">Numero De Patente</string>
+    <string name="editDescripcion">Descripción</string>
+    <string name="editTelefono">+569</string>
+    <string name="btn_Modificar">Modificar Foodtruck</string>
     <string name="editImg">Inserte Imagen Aqui</string>
-
-
     // act menu foodtruck
     <string name="foodtruck_image_desc">Imagen del camión de comida</string>
 </resources>

@@ -27,7 +27,7 @@
             android:layout_marginBottom="1dp"
             android:text="@string/nombre"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextNombre"
+            app:layout_constraintBottom_toTopOf="@+id/editTxtNombre"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
             app:layout_constraintVertical_bias="0.702" />
 
         <EditText
-            android:id="@+id/editTextNombre"
+            android:id="@+id/editTxtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -56,13 +56,13 @@
             android:layout_marginBottom="1dp"
             android:text="@string/apellido"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextNumPatente"
+            app:layout_constraintBottom_toTopOf="@+id/editTxtNumPatente"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNombre"
+            app:layout_constraintTop_toBottomOf="@+id/editTxtNombre"
             app:layout_constraintVertical_bias="1.0" />
 
         <EditText
-            android:id="@+id/editTextNumPatente"
+            android:id="@+id/editTxtNumPatente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -82,13 +82,13 @@
             android:layout_marginBottom="1dp"
             android:text="@string/correo"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/editDescripcion"
+            app:layout_constraintBottom_toTopOf="@+id/edittxtDescripcion"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumPatente"
+            app:layout_constraintTop_toBottomOf="@+id/editTxtNumPatente"
             app:layout_constraintVertical_bias="1.0" />
 
         <EditText
-            android:id="@+id/editDescripcion"
+            android:id="@+id/edittxtDescripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -107,12 +107,12 @@
             android:layout_marginBottom="12dp"
             android:text="@string/contra"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTelefono"
+            app:layout_constraintBottom_toTopOf="@+id/editTxtTelefono"
             app:layout_constraintStart_toStartOf="parent" />
 
 
         <EditText
-            android:id="@+id/editTextTelefono"
+            android:id="@+id/editTxtTelefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -135,7 +135,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/btn_consumidor"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTelefono" />
+            app:layout_constraintTop_toBottomOf="@+id/editTxtTelefono" />
 
         <Button
             android:id="@+id/btn_consumidor"
@@ -146,7 +146,7 @@
             android:text="@string/btn_consumidor"
             app:layout_constraintEnd_toEndOf="@string/btn_propietario"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTelefono" />
+            app:layout_constraintTop_toBottomOf="@+id/editTxtTelefono" />
 
         <Button
             android:id="@+id/btn_Agregar"
@@ -193,7 +193,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/txtAgregar_Foodtruck"
+        android:id="@+id/txtEditar_Foodtruck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
