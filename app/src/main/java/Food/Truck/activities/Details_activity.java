@@ -29,6 +29,7 @@ public class Details_activity extends AppCompatActivity {
     TextView NombreFT, DetailsFT,TelefonoFT;
     ImageView imagen;
     Button deleteBT;
+    Button editBT;
     String key = "";
     String imageUrl ="";
     @Override
@@ -39,6 +40,7 @@ public class Details_activity extends AppCompatActivity {
         DetailsFT =findViewById(R.id.txtDescripcionFT);
         TelefonoFT =findViewById(R.id.txtTelefono);
         deleteBT = findViewById(R.id.btnEliminar);
+        editBT = findViewById(R.id.btnEditar);
 
         Bundle bundle = getIntent().getExtras();
         ImageView imageView = findViewById(R.id.imageView);
@@ -52,6 +54,7 @@ public class Details_activity extends AppCompatActivity {
             // Si la URL es null, puedes establecer una imagen por defecto.
             imageView.setImageResource(R.drawable.user);
         }
+
         deleteBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +76,19 @@ public class Details_activity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(Details_activity.this, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        editBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Details_activity.this, editar_activity.class);
+                intent.putExtra("key", key);
+                intent.putExtra("Nombre", NombreFT.getText().toString());
+                intent.putExtra("Descripcion", DetailsFT.getText().toString());
+                intent.putExtra("Telefono", TelefonoFT.getText().toString());
+                intent.putExtra("Image", imageUrl);
+                startActivity(intent);
             }
         });
     }
