@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -46,41 +47,53 @@ public class HomeFragment extends Fragment {
      **/
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
+        // Se infla el diseño del fragmento utilizando View Binding
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Obtiene la referencia al RecyclerView
+        // Obtiene la referencia al RecyclerView del diseño
         recyclerView = root.findViewById(R.id.rvFoodTK);
 
+        // Se crea un GridLayoutManager con una sola columna
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+
         // Establece el LayoutManager del RecyclerView
         recyclerView.setLayoutManager(gridLayoutManager);
-
+        // Se inicializa la lista de FoodTrucks y se crea un adaptador para el RecyclerView
         dataFT = new ArrayList<>();
         adaptadorFoodtruck adaptador = new adaptadorFoodtruck(getActivity(), dataFT);
         recyclerView.setAdapter(adaptador);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Foodtruck");
 
+        // Se agrega un ValueEventListener para escuchar cambios en los datos de la base de datos
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Se limpia la lista de FoodTrucks
                 dataFT.clear();
+                // Se recorre cada elemento en el snapshot de la base de datos
                 for (DataSnapshot itemSnapShot: snapshot.getChildren()){
+                    // Se obtiene un objeto FoodTruck a partir de los datos en el snapshot
                     FoodTruck foodTruck = itemSnapShot.getValue(FoodTruck.class);
+                    // Se establece la clave (key) del objeto FoodTruck
                     foodTruck.setKey(itemSnapShot.getKey());
+                    // Se agrega el FoodTruck a la lista
                     dataFT.add(foodTruck);
                 }
+                // Se notifica al adaptador que los datos han cambiado
                 adaptador.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Manejar errores de lectura de la base de datos
+                String errorMessage = "Error al leer la base de datos: " + error.getMessage();
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
+        // Se retorna la vista raíz del fragmento
         return root;
     }
 
@@ -89,6 +102,7 @@ public class HomeFragment extends Fragment {
      */
     @Override
     public void onDestroyView() {
+        // Se anula la variable de View Binding cuando el fragmento es destruido
         super.onDestroyView();
         binding = null;
     }

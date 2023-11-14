@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageViewFoodTruck"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="@string/foodtruck_image_desc"
+        android:scaleType="centerCrop"
+        android:background="#D3D3D3" /> <!-- Gris claro como en tu imagen de muestra -->
+
+    <TextView
+        android:id="@+id/textViewFoodTruckName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Nombre camion de comida" />
+
+    <!-- Contenedor para las estrellas de valoración -->
+    <LinearLayout
+        android:id="@+id/ratingContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+        <!-- Puedes usar una librería de terceros para mostrar estrellas de valoración -->
+    </LinearLayout>
+
+    <!-- RecyclerView para los items del menú -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMenuItems"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+</LinearLayout>
