@@ -1,19 +1,15 @@
 package Food.Truck.indep_classes;
 
-import android.net.Uri;
-
 public class FoodTruck {
 
-    private String Key;
     private String Nombre;
-    private String Patente;
+    private String idPatente;
     private String Descripcion;
     private String Telefono;
     private String Imagen; //Se almacena la url
     public FoodTruck() {
-        this.Key = "";
         this.Nombre = "";
-        this.Patente = "";
+        this.idPatente = "";
         this.Descripcion = "";
         this.Telefono = "";
         this.Imagen = "";
@@ -21,17 +17,12 @@ public class FoodTruck {
     public FoodTruck(String nombre, String patente, String descripcion, String telefono, String imagen) {
 
         Nombre = nombre;
-        Patente = patente;
+        idPatente = patente;
         Descripcion = descripcion;
         Telefono = telefono;
         Imagen = imagen;
     }
-    public String getKey() {
-        return Key;
-    }
-    public void setKey(String key) {
-        Key = key;
-    }
+
     public String getNombre() {
         return Nombre;
     }
@@ -41,11 +32,11 @@ public class FoodTruck {
     }
 
     public String getPatente() {
-        return Patente;
+        return idPatente;
     }
 
     public void setPatente(String patente) {
-        Patente = patente;
+        idPatente = patente;
     }
 
     public String getDescripcion() {

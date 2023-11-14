@@ -62,7 +62,7 @@ public class adaptadorFoodtruck extends RecyclerView.Adapter<adaptadorFoodtruck.
                 intent.putExtra("Nombre", items.get(viewHolder.getAdapterPosition()).getNombre());
                 intent.putExtra("Descripcion", items.get(viewHolder.getAdapterPosition()).getDescripcion());
                 intent.putExtra("Telefono", items.get(viewHolder.getAdapterPosition()).getTelefono());
-                intent.putExtra("key", items.get(viewHolder.getAdapterPosition()).getKey());
+                intent.putExtra("idPatente", items.get(viewHolder.getAdapterPosition()).getPatente());
                 // Inicia la actividad de detalles
                 context.startActivity(intent);
             }

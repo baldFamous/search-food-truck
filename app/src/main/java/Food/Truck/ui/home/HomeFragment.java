@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
         adaptadorFoodtruck adaptador = new adaptadorFoodtruck(getActivity(), dataFT);
         recyclerView.setAdapter(adaptador);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Foodtruck");
+        databaseReference = FirebaseDatabase.getInstance().getReference("FoodTruck");
 
         // Se agrega un ValueEventListener para escuchar cambios en los datos de la base de datos
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
                     // Se obtiene un objeto FoodTruck a partir de los datos en el snapshot
                     FoodTruck foodTruck = itemSnapShot.getValue(FoodTruck.class);
                     // Se establece la clave (key) del objeto FoodTruck
-                    foodTruck.setKey(itemSnapShot.getKey());
+                    foodTruck.setPatente(itemSnapShot.getKey());
                     // Se agrega el FoodTruck a la lista
                     dataFT.add(foodTruck);
                 }

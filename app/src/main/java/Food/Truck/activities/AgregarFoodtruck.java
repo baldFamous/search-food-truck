@@ -21,8 +21,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -92,39 +95,76 @@ public class AgregarFoodtruck extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Este método se llama cuando el usuario hace clic en el botón de agregar food truck
-                savedata();
+
+                //Si ningun campo esta vacio, se genera la conexion con Firebase
+                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                DatabaseReference dbRef = db.getReference(FoodTruck.class.getSimpleName());
+
+                //Se declara el evento de la referencia a la db
+                dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        //se declara una variable bool de verificacion
+                        Boolean existInDb = false;
+
+                        String patenteId = patente_FT.getText().toString();
+
+                        //Este ciclo for recorre todos los objetos guardados en la BD
+                        for (DataSnapshot x : snapshot.getChildren()){
+
+                            //La variable x de tipo DataSnapshot, guarda los registros obtenidos de la BD en un array, asi que podemos acceder a los
+                            //indices de este si asi lo necesitaramos
+
+                            //Se comprueba si la id ya existe, este validador es temporal ya que es demasiado simple, y estamos ingresando las id de manera manual
+                            //La idea final es hacerlo con un metodo
+
+                            if (x.child("id").getValue().toString().equals(patenteId)){
+                                Toast.makeText(AgregarFoodtruck.this, "La id de registro ya existe en la BD", Toast.LENGTH_SHORT).show();
+                                existInDb = true;
+                                break;
+                            }
+                        }
+
+                        //Si la id no existe en la BD, se registra una propiedad nueva, creando un objeto de la clase, y rellenando su constructor
+                        if (existInDb == false){
+
+                            String nom = nombre_FT.getText().toString();
+                            String pat = patente_FT.getText().toString();
+                            String des = descripcion_FT.getText().toString();
+                            String tel = telefono_FT.getText().toString();
+
+                            FoodTruck foodTruck = new FoodTruck(nom, pat, des, tel, imageURL);
+
+                            //Se guarda el objeto en la db usando esta linea de codigo
+                            dbRef.push().setValue(foodTruck);
+
+                            //Mensaje de registro exitoso, y se envia al usuario a la pantalla de "menu"
+                            Toast.makeText(AgregarFoodtruck.this, "Registro guardado exitosamente", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AgregarFoodtruck.this, Inicio.class);
+                            startActivity(intent);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 
 
     }
+
+
+
+
+
+
 
     // Método para guardar la imagen seleccionada en Firebase Storage
-    private void savedata() {
-        // Referencia de almacenamiento en Firebase con el nombre de la carpeta y la última parte del path de la Uri como nombre del archivo
-        StorageReference refAlmacenamiento = FirebaseStorage.getInstance().getReference().child("Android Images")
-                .child(uri.getLastPathSegment());
 
-        // Subir la imagen al almacenamiento de Firebase
-        refAlmacenamiento.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // Obtener la URL de descarga de la imagen almacenada en Firebase Storage
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while(!uriTask.isComplete());
-                Uri urlImage = uriTask.getResult();
-                // Almacenar la URL de la imagen en imageURL y llamar al método para cargar los datos en la base de datos
-                imageURL = urlImage.toString();
-                uploadData();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                // Manejar el fallo en la carga de la imagen
-                Toast.makeText(AgregarFoodtruck.this, "Error al cargar la Imagem}n", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     // Método para cargar los datos del food truck en la base de datos de Firebase Realtime
     private void uploadData() {
