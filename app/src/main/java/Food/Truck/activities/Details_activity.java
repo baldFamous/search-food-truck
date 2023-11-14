@@ -28,7 +28,7 @@ public class Details_activity extends AppCompatActivity {
 
     TextView NombreFT, DetailsFT,TelefonoFT;
     ImageView imagen;
-    FloatingActionMenu deleteBT;
+    Button deleteBT;
     String key = "";
     String imageUrl ="";
     @Override
@@ -38,8 +38,7 @@ public class Details_activity extends AppCompatActivity {
         NombreFT =findViewById(R.id.txtNombreFT);
         DetailsFT =findViewById(R.id.txtDescripcionFT);
         TelefonoFT =findViewById(R.id.txtTelefono);
-        deleteBT = findViewById(R.id.idftEliminar);
-
+        deleteBT = findViewById(R.id.btnEliminar);
 
         Bundle bundle = getIntent().getExtras();
         ImageView imageView = findViewById(R.id.imageView);
