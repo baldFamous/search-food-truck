@@ -108,6 +108,8 @@ public class AgregarFoodtruck extends AppCompatActivity {
     }
 
 
+
+
     private void uploadData() {
         String nom = nombre_FT.getText().toString();
         String pat = patente_FT.getText().toString();
