@@ -39,14 +39,19 @@ public class Details_activity extends AppCompatActivity {
         DetailsFT =findViewById(R.id.txtDescripcionFT);
         TelefonoFT =findViewById(R.id.txtTelefono);
         deleteBT = findViewById(R.id.idftEliminar);
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
-            DetailsFT.setText(bundle.getString("Descripcion"));
-            NombreFT.setText(bundle.getString("Nombre"));
-            key = bundle.getString("key");
-            imageUrl = bundle.getString("Image");
-            Glide.with(this).load(bundle.getString("Image")).into(imagen);
 
+
+        Bundle bundle = getIntent().getExtras();
+        ImageView imageView = findViewById(R.id.imageView);
+        String imageUrl = bundle.getString("Image");
+
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(imageUrl)
+                    .into(imageView);
+        } else {
+            // Si la URL es null, puedes establecer una imagen por defecto.
+            imageView.setImageResource(R.drawable.user);
         }
         deleteBT.setOnClickListener(new View.OnClickListener() {
             @Override
