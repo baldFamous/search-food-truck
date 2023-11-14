@@ -36,6 +36,7 @@
         <activity android:name=".activities.Inicio"></activity>
         <activity android:name=".activities.Terminos"></activity>
         <activity android:name=".activities.Details_activity"></activity>
+        <activity android:name=".activities.editar_activity"></activity>
     </application>
 
 </manifest>

@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -127,29 +128,31 @@ public class AgregarFoodtruck extends AppCompatActivity {
 
     // Método para cargar los datos del food truck en la base de datos de Firebase Realtime
     private void uploadData() {
-
         String nom = nombre_FT.getText().toString();
         String pat = patente_FT.getText().toString();
         String des = descripcion_FT.getText().toString();
         String tel = telefono_FT.getText().toString();
 
-        FoodTruck foodTruck = new FoodTruck(nom, pat, des, tel ,imageURL);
-        // Almacenar el objeto FoodTruck en la base de datos de Firebase Realtime Database
-        FirebaseDatabase.getInstance().getReference("Foodtruck").child(nom)
-                .setValue(foodTruck).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // Verificar si la operación fue exitosa y mostrar un mensaje al usuario
-                        if(task.isSuccessful()){
-                            Toast.makeText(AgregarFoodtruck.this, "Guardado", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Manejar el caso en que la operación no fue exitosa (puedes agregar lógica adicional aquí)
-                            Toast.makeText(AgregarFoodtruck.this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
-                        }
-                    }public void onFailure(@NonNull Exception e){
-                        Toast.makeText(AgregarFoodtruck.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+        FoodTruck foodTruck = new FoodTruck(nom, pat, des, tel, imageURL);
 
+        // Obtiene una referencia al nodo 'Foodtruck' y usa 'push()' para crear un nuevo nodo con un ID único
+        DatabaseReference newFoodTruckRef = FirebaseDatabase.getInstance().getReference("Foodtruck").push();
+
+        // Almacena el objeto FoodTruck en el nuevo nodo
+        newFoodTruckRef.setValue(foodTruck).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(AgregarFoodtruck.this, "Guardado", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AgregarFoodtruck.this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AgregarFoodtruck.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
