@@ -1,13 +1,10 @@
 package Food.Truck.activities;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,9 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,13 +25,9 @@ import Food.Truck.R;
 import Food.Truck.indep_classes.FoodTruck;
 
 public class AgregarFoodtruck extends AppCompatActivity {
-    // Constante para la solicitud de selección de imagen
-    private static final int PICK_IMAGE_REQUEST = 1;
-    // Declaración de variables de vistas
     ImageView imgFT;
     EditText nombre_FT, patente_FT, descripcion_FT, telefono_FT;
     Button add_Ft;
-    String imageURL;
     Uri uri;
 
     @Override
@@ -45,114 +35,81 @@ public class AgregarFoodtruck extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_foodtruck);
 
-        // Binds View
-        nombre_FT = (EditText) findViewById(R.id.editTxtNombre);
-        patente_FT = (EditText)findViewById(R.id.editTxtNumPatente);
-        descripcion_FT = (EditText)findViewById(R.id.edittxtDescripcion);
-        telefono_FT = (EditText)findViewById(R.id.editTxtTelefono);
-        imgFT = (ImageView) findViewById(R.id.imageButton);
-        add_Ft = (Button) findViewById(R.id.btn_Agregar);
+        nombre_FT = findViewById(R.id.editTxtNombre);
+        patente_FT = findViewById(R.id.editTxtNumPatente);
+        descripcion_FT = findViewById(R.id.edittxtDescripcion);
+        telefono_FT = findViewById(R.id.editTxtTelefono);
+        imgFT = findViewById(R.id.imageButton);
+        add_Ft = findViewById(R.id.btn_Agregar);
 
-        // Configuración del lanzador de actividad para seleccionar imágenes
-        ActivityResultLauncher<Intent> ActivityResoultLauncher = registerForActivityResult(
+        // Lanzador de actividad para seleccionar imágenes
+        ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        // Este método se llama cuando la actividad de selección de imágenes ha terminado
-                        if(result.getResultCode() == Activity.RESULT_OK){
-                            // Se obtiene la información de la intención devuelta
-                            Intent data = result.getData();
-                            // Se obtiene la Uri de la imagen seleccionada
-                            uri = data.getData();
-                            // Se establece la Uri en el ImageView para mostrar la imagen seleccionada
-                            imgFT.setImageURI(uri);
-                        } else {
-                            Toast.makeText(AgregarFoodtruck.this, "No has seleccionado ninguna Imagen", Toast.LENGTH_SHORT).show();
-                        }
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        uri = result.getData().getData();
+                        imgFT.setImageURI(uri);
+                    } else {
+                        Toast.makeText(AgregarFoodtruck.this, "No has seleccionado ninguna imagen.", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
 
-        // que permite al usuario seleccionar una imagen
-        imgFT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Se crea una nueva intención para seleccionar imágenes
-                Intent seleccionarIMG = new Intent(Intent.ACTION_PICK);
-                // Se establece el tipo de datos que se pueden seleccionar (en este caso, cualquier imagen)
-                seleccionarIMG.setType("image/*");
-                // Se lanza la actividad de selección de imágenes con el lanzador configurado previamente
-                ActivityResoultLauncher.launch(seleccionarIMG);
-            }
+        imgFT.setOnClickListener(view -> {
+            Intent seleccionarIMG = new Intent(Intent.ACTION_PICK);
+            seleccionarIMG.setType("image/*");
+            imagePickerLauncher.launch(seleccionarIMG);
         });
 
-        // Manejador de clics para el botón de agregar food truck
-        add_Ft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Este método se llama cuando el usuario hace clic en el botón de agregar food truck
-                savedata();
-            }
-        });
-
-
-    }
-
-    // Método para guardar la imagen seleccionada en Firebase Storage
-    private void savedata() {
-        // Referencia de almacenamiento en Firebase con el nombre de la carpeta y la última parte del path de la Uri como nombre del archivo
-        StorageReference refAlmacenamiento = FirebaseStorage.getInstance().getReference().child("Android Images")
-                .child(uri.getLastPathSegment());
-
-        // Subir la imagen al almacenamiento de Firebase
-        refAlmacenamiento.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // Obtener la URL de descarga de la imagen almacenada en Firebase Storage
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while(!uriTask.isComplete());
-                Uri urlImage = uriTask.getResult();
-                // Almacenar la URL de la imagen en imageURL y llamar al método para cargar los datos en la base de datos
-                imageURL = urlImage.toString();
-                uploadData();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                // Manejar el fallo en la carga de la imagen
-                Toast.makeText(AgregarFoodtruck.this, "Error al cargar la Imagem}n", Toast.LENGTH_SHORT).show();
+        add_Ft.setOnClickListener(view -> {
+            if (uri != null) {
+                uploadImageToFirebaseStorage();
+            } else {
+                Toast.makeText(AgregarFoodtruck.this, "Por favor, selecciona una imagen para el food truck.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Método para cargar los datos del food truck en la base de datos de Firebase Realtime
-    private void uploadData() {
-        String nom = nombre_FT.getText().toString();
-        String pat = patente_FT.getText().toString();
-        String des = descripcion_FT.getText().toString();
-        String tel = telefono_FT.getText().toString();
+    private void uploadImageToFirebaseStorage() {
+        StorageReference refAlmacenamiento = FirebaseStorage.getInstance().getReference().child("Android Images").child(uri.getLastPathSegment());
+        refAlmacenamiento.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+            urlTask.addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    String imageURL = task.getResult().toString();
+                    uploadFoodTruckData(imageURL);
+
+                } else {
+                    Toast.makeText(AgregarFoodtruck.this, "La imagen se subió pero no se pudo obtener la URL.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }).addOnFailureListener(e -> Toast.makeText(AgregarFoodtruck.this, "Error al cargar la imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+    private void uploadFoodTruckData(String imageURL) {
+        String nom = nombre_FT.getText().toString().trim();
+        String pat = patente_FT.getText().toString().trim();
+        String des = descripcion_FT.getText().toString().trim();
+        String tel = telefono_FT.getText().toString().trim();
+
+        if (nom.isEmpty() || pat.isEmpty() || des.isEmpty() || tel.isEmpty()) {
+            Toast.makeText(AgregarFoodtruck.this, "Por favor, llena todos los campos.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         FoodTruck foodTruck = new FoodTruck(nom, pat, des, tel, imageURL);
-
-        // Obtiene una referencia al nodo 'Foodtruck' y usa 'push()' para crear un nuevo nodo con un ID único
-        DatabaseReference newFoodTruckRef = FirebaseDatabase.getInstance().getReference("Foodtruck").push();
-
-        // Almacena el objeto FoodTruck en el nuevo nodo
-        newFoodTruckRef.setValue(foodTruck).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(AgregarFoodtruck.this, "Guardado", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(AgregarFoodtruck.this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
-                }
+        FirebaseDatabase.getInstance().getReference("Foodtruck").push().setValue(foodTruck).addOnCompleteListener(task -> {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("FoodTruck");
+            String key = ref.push().getKey();
+            ref.child(key).setValue(foodTruck);
+            if(task.isSuccessful()){
+                Toast.makeText(AgregarFoodtruck.this, "Food Truck agregado exitosamente.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(AgregarFoodtruck.this, Inicio.class));
+                finish();
+            } else {
+                Toast.makeText(AgregarFoodtruck.this, "Error al guardar los datos.", Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AgregarFoodtruck.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(AgregarFoodtruck.this, "Error al guardar los datos: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }
